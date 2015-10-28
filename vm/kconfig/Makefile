@@ -1,6 +1,6 @@
 CC := gcc
-LDFLAGS := -s
-CFLAGS := -g -O2 --std=gnu99 -Wall 
+LDFLAGS := -s -lintl ${LDFLAGS}
+CFLAGS := -g -O2 --std=gnu99 -Wall ${CFLAGS}
 
 all: conf nconf
 

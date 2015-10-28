@@ -29,6 +29,11 @@ USAGE:
 
 Note: gawk is required to build the VM.
 
+Note: On OS X, the configuration system requires gettext, which you
+can get from Homebrew and MacPorts. You will need to run make with
+flags like CFLAGS="-I/opt/local/include" LDFLAGS="-L/opt/local/lib"
+set, depending on whether you use MacPorts (shown) or Homebrew.
+
 2. Compile a Scheme program:
      ./picobit prog.scm
 
