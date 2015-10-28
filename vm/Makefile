@@ -40,15 +40,15 @@ config_generated:
 
 nconfig: config_generated FORCE
 	make -C kconfig nconf
-	./kconfig/nconf Kconfig
+	./kconfig/nconf Kconfig.menu
 
 config: config_generated FORCE
 	make -C kconfig conf
-	./kconfig/conf Kconfig
+	./kconfig/conf Kconfig.menu
 
 %config: config_generated FORCE
 	make -C kconfig conf
-	./kconfig/conf --$@ Kconfig
+	./kconfig/conf --$@ Kconfig.menu
 
 else
 # Build targets only -- generally all targets except *config targets.
@@ -80,7 +80,7 @@ include/arch: include/config/auto.conf
 	@ln -sf ../$(arch)/include/ include/arch
 
 CROSS  := $(call unquote,$(CONFIG_CROSS_COMPILER))
-CFLAGS := -Iinclude/ -DPICOBIT -Wall -Werror -Os
+CFLAGS := -Iinclude/ -DPICOBIT -Wall -Os ${CFLAGS}
 
 arch  = arch/$(call unquote,$(CONFIG_ARCH))
 # Some linkers may have trouble with this order. Put arch first if
@@ -102,7 +102,7 @@ prim-gen = gawk -f scripts/scanner.awk -f scripts/prim-$(1).awk \
 	rm -f $@
 	for object in $(obj-y); do \
 		$(CROSS)cpp -DNO_PRIMITIVE_EXPAND $(CFLAGS) \
-			$$object -o - >>$@; \
+			$$object -o - >>$@ || rm $@; \
 	done
 	$(call prim-gen,headergen,include/gen.primitives.h)
 	$(call prim-gen,schemegen,../compiler/gen.primitives.rkt)

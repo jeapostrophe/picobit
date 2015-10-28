@@ -46,7 +46,7 @@ void show_type (obj o)
 			printf("rom continuation");
 		}
 
-		// ROM closures don't exist
+		// ROM closures do not exist
 	}
 
 	printf("\n");

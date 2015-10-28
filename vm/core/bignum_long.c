@@ -196,11 +196,11 @@ integer shr (integer x)   // TODO have shift_right
 {
 	/* shr(x) returns the integer x shifted one bit to the right */
 
-	// Note: we don't need to register x with the GC, even though we
+	// Note: we do not need to register x with the GC, even though we
 	//  assign it. Our caller registered the original value of x, and
 	//  we only cdr it down. Thus, any local value of x is pointed to
-	//  by the original x, so we're good. Same situation in most other
-	//  bignum operations.
+	//  by the original x, so we are good. Same situation in most
+	//  other bignum operations.
 
 	bignum_tmp1 = OBJ_FALSE;
 	digit d;
